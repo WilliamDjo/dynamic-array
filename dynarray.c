@@ -5,37 +5,73 @@
 #define STARTING_CAPACITY 8
 
 typedef struct DA {
-  // TODO define our struct
+  void **items; // Array of void pointers
+  int size; // Current number of elements
+  int capacity; // Maximum number of elements before resizing
 } DA;
 
 
 DA* DA_new (void) {
-  // TODO allocate and return a new dynamic array
+  // allocate and return a new dynamic array
+  DA* arr = malloc(sizeof(DA));
+  if (arr == NULL) {
+    fprintf(stderr, "Failed to allocate memory for DynamicArray\n");
+    exit(EXIT_FAILURE);
+  }
+
+  arr->size = 0;
+  arr->capacity = STARTING_CAPACITY;
+  arr->items = malloc(sizeof(void *) * arr->capacity);
+  if (arr->items == NULL) {
+      fprintf(stderr, "Failed to allocate memory for items\n");
+      free(arr);
+      exit(EXIT_FAILURE);
+  }
+
+  return arr;
 }
 
 int DA_size(DA *da) {
-  // TODO return the number of items in the dynamic array
+  // return the number of items in the dynamic array
+  return da->size;
 }
 
 void DA_push (DA* da, void* x) {
-  // TODO push to the end
+  // push to the end
+  if (da->size == da->capacity) {
+    da->capacity *= 2;
+    da->items = realloc(da->items, sizeof(void *) * da->capacity);
+  }
+  da->items[da->size++] = x;
 }
 
 void *DA_pop(DA *da) {
-  // TODO pop from the end
+  if (da->size == 0) {
+      fprintf(stderr, "Cannot pop from empty array\n");
+      return NULL;
+  }
+  return da->items[da->size--];
 }
 
 void DA_set(DA *da, void *x, int i) {
-  // TODO set at a given index, if possible
+  if (i < 0 || i >= da->size) {
+    fprintf(stderr, "Index %d out of bounds for setItem\n", i);
+    return;
+  }
+  da->items[i] = x;
 }
 
 void *DA_get(DA *da, int i) {
-  // TODO get from a given index, if possible
+  if (i < 0 || i >= da->size) {
+    fprintf(stderr, "Index %d out of bounds for getItem\n", i);
+    return NULL;
+  }
+  return da->items[i];
 }
 
-
 void DA_free(DA *da) {
-  // TODO deallocate anything on the heap
+  free(da->items);
+  free(da);
 }
 
 int main() {
