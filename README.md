@@ -4,7 +4,7 @@ A educational project demonstrating fundamental concepts of **pointers**, **dyna
 
 ## 🎯 Learning Objectives
 
-This project is designed to provide hands-on experience with:
+This project is designed to provide me hands-on experience with:
 
 - **Pointer manipulation** and dereferencing
 - **Dynamic memory allocation** (`malloc`, `realloc`, `free`)
@@ -194,7 +194,7 @@ int* ptr = (int*)DA_get(arr, 0);  // Must cast back to correct type
 
 ## 🎓 Educational Extensions
 
-Try implementing these features to deepen understanding:
+Additional features to deepen understanding:
 
 - **Insert/Delete at arbitrary positions**
 - **Iterator functions** using function pointers
