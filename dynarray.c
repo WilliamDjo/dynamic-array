@@ -50,7 +50,7 @@ void *DA_pop(DA *da) {
       fprintf(stderr, "Cannot pop from empty array\n");
       return NULL;
   }
-  return da->items[da->size--];
+  return da->items[--da->size];
 }
 
 void DA_set(DA *da, void *x, int i) {
